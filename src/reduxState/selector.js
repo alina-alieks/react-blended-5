@@ -6,6 +6,7 @@ export const selectError = state => state.currency.isError;
 export const selectLoading = state => state.currency.isLoading;
 export const selectRates = state => state.currency.rates;
 export const selectFilter = state => state.currency.filter;
+
 export const selectFiltredRates = createSelector(
   [selectorBaseCurrency, selectRates, selectFilter],
   (baseCurrency, rates, filter) => {
