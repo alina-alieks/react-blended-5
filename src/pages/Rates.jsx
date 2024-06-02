@@ -1,6 +1,13 @@
 import { Wave } from 'react-animated-text';
 
-import { Container, Heading, Loader, RatesList, Section } from 'components';
+import {
+  Container,
+  Filter,
+  Heading,
+  Loader,
+  RatesList,
+  Section,
+} from 'components';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,6 +16,7 @@ import {
   selectError,
   selectFiltredRates,
   selectLoading,
+  selectRates,
   selectorBaseCurrency,
 } from 'reduxState/selector';
 
@@ -17,11 +25,12 @@ const Rates = () => {
   const isError = useSelector(selectError);
   const isLoading = useSelector(selectLoading);
   const filtredRates = useSelector(selectFiltredRates);
+  const rates = useSelector(selectRates);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchLatestSymbols(baseCurrency));
   }, [dispatch, baseCurrency]);
-
+  console.log();
   return (
     <Section>
       <Container>
@@ -36,8 +45,14 @@ const Rates = () => {
             />
           }
         />
+        {rates.length > 0 && <Filter />}
         {isLoading && <Loader />}
-        {filtredRates.length > 0 && <RatesList rates={filtredRates} />}
+        {filtredRates.length > 0 ? (
+          <RatesList rates={filtredRates} />
+        ) : (
+          <Heading info title={`We did not find such a currency😐`} />
+        )}
+
         {isError && (
           <Heading
             error

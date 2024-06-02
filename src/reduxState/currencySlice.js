@@ -13,10 +13,14 @@ const slice = createSlice({
     isLoading: false,
     isError: null,
     rates: [],
+    filter: '',
   },
   reducers: {
     setBaseCurrency(state, action) {
       state.baseCurrency = action.payload;
+    },
+    setFilter(state, action) {
+      state.filter = action.payload;
     },
   },
   extraReducers: builder => {
@@ -52,5 +56,5 @@ const slice = createSlice({
   },
 });
 
-export const { setBaseCurrency } = slice.actions;
+export const { setBaseCurrency, setFilter } = slice.actions;
 export const currencyReducer = slice.reducer;
